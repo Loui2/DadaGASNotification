@@ -1,18 +1,17 @@
-// This should be the notification code as discussed previously
-function sendNotification() {
-  if (Notification.permission === 'granted') {
-    new Notification('Hey there!', {
-      body: 'This is an example notification from your GitHub-hosted script!',
-      icon: 'https://example.com/icon.png'
-    });
-  } else if (Notification.permission !== 'denied') {
-    Notification.requestPermission().then(permission => {
+function sendNotification(title, message) {
+  if (Notification.permission !== 'granted') {
+    Notification.requestPermission().then(function(permission) {
       if (permission === 'granted') {
-        new Notification('Hey there!', {
-          body: 'This is an example notification from your GitHub-hosted script!',
-          icon: 'https://example.com/icon.png'
+        new Notification(title, {
+          body: message,
+          icon: 'https://example.com/notification-icon.png'
         });
       }
+    });
+  } else {
+    new Notification(title, {
+      body: message,
+      icon: 'https://example.com/notification-icon.png'
     });
   }
 }
